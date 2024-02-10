@@ -15,13 +15,16 @@
       <div class="container">
         <nav>
           <h1><span>K</span>ashyap</h1>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Contact</a></li>
+          <ul id="sidemenu">
+            <li><a href="#header">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <i class="fas fa-times" onclick="closemenu()"></i>
           </ul>
+
+          <i class="fas fa-bars" onclick="openmenu()"></i>
         </nav>
         <div class="header-text">
           <p>Full Stack Java Developer</p>
@@ -166,9 +169,60 @@
         <a href="#" class="btn">See more</a>
       </div>
     </div>
+
+    <!-- Contact -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="contact-left">
+            <h1 class="sub-title">Contact Me</h1>
+
+            <p>
+              <i class="fas fa-paper-plane"></i>kashyapchallapalli@outlook.com
+            </p>
+            <div class="social-icons">
+              <a
+                href="https://www.linkedin.com/in/kashyap-challapalli/"
+                target="_blank"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/challapallikashyap/"
+                target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <div class="contact-right">
+            <form name="submit-to-google-sheet">
+              <input type="text" name="name" placeholder="Your Name" required />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+              />
+              <textarea
+                name="message"
+                rows="6"
+                placeholder="Your Message"
+              ></textarea>
+              <button type="submit" class="btn btn2">Submit</button>
+            </form>
+            <span id="msg"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>Copyright &copy; Kashyap Kumar Challapalli</p>
+    </div>
+
     <script>
       var tablinks = document.getElementsByClassName("tab-links");
       var tabcontents = document.getElementsByClassName("tab-contents");
+      var sidemenu = document.getElementById("sidemenu");
+
       function opentab(tabname) {
         for (tablink of tablinks) {
           tablink.classList.remove("active-link");
@@ -179,6 +233,32 @@
         event.currentTarget.classList.add("active-link");
         document.getElementById(tabname).classList.add("active-tab");
       }
+
+      function openmenu() {
+        sidemenu.style.right = "0";
+      }
+      function closemenu() {
+        sidemenu.style.right = "-200px";
+      }
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbze6a8z_4FljZbplNhO5dyduET7c3Aj9kzvEkxrP6EhjnAs7Na5M4_4JxqPcVj1cwyV8w/exec";
+      const form = document.forms["submit-to-google-sheet"];
+      const msg = document.getElementById("msg");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then(
+            (response) => (
+              (msg.innerHTML = "Message has been Sent Succesfully"),
+              setTimeout(function () {
+                msg.innerHTML = "";
+              }, 5000),
+              form.reset()
+            )
+          )
+          .catch((error) => console.error("Error!", error.message));
+      });
     </script>
   </body>
 </html>
