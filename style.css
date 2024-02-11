@@ -21,6 +21,9 @@ body {
 
   /* background-position: center; */
 }
+menu {
+  position: fixed;
+}
 .container {
   padding: 10px 10%;
 }
